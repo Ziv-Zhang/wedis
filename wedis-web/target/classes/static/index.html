@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/element-ui.css">
+    <link rel="stylesheet" href="css/v-contextmenu.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header>
+       	<div class="logo left aside-width-200" ></div>
+
+           <el-menu
+                   class="el-menu-demo"
+                   mode="horizontal"
+                   background-color="rgb(233,233,233)"
+                   text-color="#000"
+                   active-text-color="#000">
+               <el-menu-item index="1" @click="newConnection">新建连接</el-menu-item>
+               <el-submenu index="2">
+                   <template slot="title">我的工作台</template>
+                   <el-menu-item index="2-1">选项1</el-menu-item>
+                   <el-menu-item index="2-2">选项2</el-menu-item>
+                   <el-menu-item index="2-3">选项3</el-menu-item>
+                   <el-submenu index="2-4">
+                       <template slot="title">选项4</template>
+                       <el-menu-item index="2-4-1">选项1</el-menu-item>
+                       <el-menu-item index="2-4-2">选项2</el-menu-item>
+                       <el-menu-item index="2-4-3">选项3</el-menu-item>
+                   </el-submenu>
+               </el-submenu>
+               <el-menu-item index="3" disabled>消息中心</el-menu-item>
+           </el-menu>
+
+        </el-header>
+        <el-container>
+            <el-aside width="200px">
+
+		    <el-menu
+		      class="w-menu"
+		      background-color="rgb(28,120,135)"
+		      text-color="#fff"
+		      active-text-color="#ffd04b">
+		      <el-submenu 
+		      	:index="item.id"
+		      	v-for="(item, index) in conns"
+		      	v-contextmenu:conn-menu>
+		        <template slot="title">
+		          <i class="el-icon-location"></i>
+		          <span>{{item.name}}</span>
+		        </template>
+	          	<el-menu-item :index="item.id+'-cache'" @click="openTab(item.id+'-cache',item.name+'-缓存库','/static/modules/cache-list.html?id='+item.id)">缓存库</el-menu-item>
+	          	<el-menu-item :index="item.id+'-tools'">命令工具</el-menu-item>
+		      </el-submenu>
+		    </el-menu>
+		            
+	          	<v-contextmenu ref="conn-menu" @contextmenu="selectConnId">
+				  <v-contextmenu-item @click="editConn">编辑连接</v-contextmenu-item>
+				</v-contextmenu>
+			</el-aside>
+                <el-main>
+                	<el-tabs type="card" closable @tab-remove="removeTab" v-model="activeTab">
+					  <el-tab-pane
+					    v-for="(item, index) in tabs"
+					    :key="item.id"
+					    :label="item.label"
+					    :name="item.id"
+					    v-html="item.content"
+					  >
+					  </el-tab-pane>
+					</el-tabs>
+                </el-main>	
+        </el-container>
+        <el-footer height="20px">
+        	<div class="left aside-width-200">W</div>
+        	<div class="footer-right">footer</div>
+        </el-footer>
+    </el-container>
+    
+    <el-dialog
+	  :title="editConnection.title"
+	  :visible.sync="editConnection.visible"
+	  :close-on-click-modal="false">
+	  
+	  <el-tabs type="border-card">
+		 <el-tab-pane label="连接设置">
+		 	<el-form label-position="right" label-width="80px" :model="editConnection.setting">
+			  <el-form-item label="连接名">
+			    <el-input v-model="editConnection.setting.name" clearable placeholder="连接名"></el-input>
+			  </el-form-item>
+			  <el-form-item label="IP地址">
+			    <el-input v-model="editConnection.setting.host" clearable placeholder="主机名或IP地址"></el-input>
+			  </el-form-item>
+			  <el-form-item label="端口">
+			    <el-input v-model="editConnection.setting.port" clearable placeholder="端口"></el-input>
+			  </el-form-item>
+			  <el-form-item label="密码">
+			    <el-input v-model="editConnection.setting.pwd" clearable placeholder="密码"></el-input>
+			  </el-form-item>
+			</el-form>
+		 </el-tab-pane>
+		 <el-tab-pane label="高级设置">高级设置</el-tab-pane>
+	  </el-tabs>
+	  
+	  <span slot="footer" class="dialog-footer">
+	    <el-button class="left" @click="connTest">连接测试</el-button>
+	    <el-button @click="editConnection.visible = false">取 消</el-button>
+	    <el-button type="primary" @click="saveConnSetting">确 定</el-button>
+	  </span>
+	</el-dialog>
+
+</div>
+</body>
+<script src="js/plugins/vue.js"></script>
+<script src="js/plugins/element-ui.js"></script>
+<script src="js/plugins/v-contextmenu.js"></script>
+<script src="js/plugins/axios.js"></script>
+<script src="js/index.js"></script>
+</html>

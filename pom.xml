@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.vimcoder</groupId>
+	<artifactId>wedis</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.3.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	
+	<properties>
+		<fastjson.version>1.2.47</fastjson.version>
+		<wedis.version>0.0.1</wedis.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.vimcoder</groupId>
+				<artifactId>wedis-service</artifactId>
+				<version>${wedis.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.vimcoder</groupId>
+			    <artifactId>wedis-base</artifactId>
+			    <version>${wedis.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.vimcoder</groupId>
+			    <artifactId>wedis-redis</artifactId>
+			    <version>${wedis.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.vimcoder</groupId>
+				<artifactId>wedis-dao</artifactId>
+				<version>${wedis.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		</dependency>
+		
+	</dependencies>
+	
+	<modules>
+		<module>wedis-base</module>
+		<module>wedis-web</module>
+		<module>wedis-service</module>
+		<module>wedis-redis</module>
+		<module>wedis-dao</module>
+	</modules>
+</project>

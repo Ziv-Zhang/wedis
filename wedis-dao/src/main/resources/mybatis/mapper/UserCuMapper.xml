@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ifre.platform.pls.dao.custom.UserCuMapper">
+    <resultMap id="BaseResultMap" type="com.ifre.platform.pls.model.generator.User">
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="user_company_id" jdbcType="VARCHAR" property="userCompanyId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_password" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="user_num" jdbcType="VARCHAR" property="userNum"/>
+        <result column="user_mobile" jdbcType="VARCHAR" property="userMobile"/>
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="user_nickname" jdbcType="VARCHAR" property="userNickname"/>
+        <result column="user_cn_name" jdbcType="VARCHAR" property="userCnName"/>
+        <result column="user_id_card" jdbcType="VARCHAR" property="userIdCard"/>
+        <result column="user_id_card_font_img" jdbcType="VARCHAR" property="userIdCardFontImg"/>
+        <result column="user_id_card_back_img" jdbcType="VARCHAR" property="userIdCardBackImg"/>
+        <result column="user_head_img" jdbcType="VARCHAR" property="userHeadImg"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        <result column="user_sex" jdbcType="INTEGER" property="userSex"/>
+        <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
+        <result column="user_status_explain" jdbcType="VARCHAR" property="userStatusExplain"/>
+        <result column="user_create_time" jdbcType="TIMESTAMP" property="userCreateTime"/>
+        <result column="user_create_user_id" jdbcType="VARCHAR" property="userCreateUserId"/>
+        <result column="user_update_time" jdbcType="TIMESTAMP" property="userUpdateTime"/>
+        <result column="user_update_user_id" jdbcType="VARCHAR" property="userUpdateUserId"/>
+        <result column="user_is_delete" jdbcType="BIT" property="userIsDelete"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    user_id, user_company_id, user_name, user_password, user_num, user_mobile, user_email, 
+    user_nickname, user_cn_name, user_id_card, user_id_card_font_img, user_id_card_back_img, 
+    user_head_img, user_type, user_sex, user_status, user_status_explain, user_create_time, 
+    user_create_user_id, user_update_time, user_update_user_id, user_is_delete
+  </sql>
+
+    <select id="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pls_user
+        where
+        user_is_delete = 0
+        <if test="startTime!=null and startTime!=''">
+            <![CDATA[   and DATE_FORMAT(user_create_time, '%Y-%m-%d')>=  #{startTime}   ]]>
+        </if>
+        <if test="endTime!=null and endTime!=''">
+            <![CDATA[  and DATE_FORMAT(user_create_time, '%Y-%m-%d') <=  #{endTime}    ]]>
+        </if>
+        <if test="userStatus!=null and userStatus!=''">
+             and  user_status = #{userStatus}
+        </if>
+        <if test="keyword!=null and keyword!=''">
+            AND (
+            POSITION(#{keyword} IN user_name)
+            )
+        </if>
+        ORDER BY user_create_time DESC
+    </select>
+</mapper>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/element-ui.css">
+    <link rel="stylesheet" href="../css/common.css">
+<title>11</title>
+</head>
+<body>
+<div id="app">
+	<el-card class="module-content" shadow="always">
+		<el-row>
+			<el-col>
+				<el-form :inline="true">
+					
+				</el-form>
+			</el-col>
+			<el-input v-model="test"></el-input>
+			<el-col>
+				<el-table :data="">
+					<el-table-column prop="key" label="key"></el-table-column>
+					<el-table-column prop="value" label="value"></el-table-column>
+				</el-table>
+			</el-col>
+		</el-row>
+	</el-card>
+</div>
+</body>
+<script src="../js/plugins/vue.js"></script>
+<script src="../js/plugins/element-ui.js"></script>
+<script src="../js/plugins/axios.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/modules/cache-list.js"></script>
+</html>

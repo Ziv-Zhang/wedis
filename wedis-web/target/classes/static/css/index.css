@@ -1,0 +1,62 @@
+body, .el-header, .el-footer, .el-main {
+	padding: 0;
+	margin: 0;
+}
+
+.aside-width-200 {
+	width: 200px;
+	text-align: center;
+	background-color: #D4D4D4;
+}
+
+.logo {
+	line-height: 60px;
+	height: 60px;
+	background-image: url(images/logo.png);
+	background-repeat: no-repeat;
+	background-size: 60% 60%;
+	-moz-background-size: 60% 60%;
+	background-position: center;
+}
+
+.el-header .el-menu {
+	position: inherit;
+}
+
+.el-aside .w-menu {
+	height: calc(100vh - 81px);
+}
+
+.el-footer {
+	background-color: rgb(213, 213, 213);
+}
+
+.el-footer .footer-right {
+	margin-left: 200px;
+	background-color: rgb(233, 233, 233);
+	padding-left: 20px;
+	box-shadow: 1px 1px 1px 1px #888;
+}
+
+.el-main .el-tabs__content {
+	padding: 0px;
+}
+
+.el-submenu .el-menu-item {
+	min-width: 0px;
+}
+
+.el-main .el-tab-pane{
+	height: calc(100vh - 140px);
+	overflow: hidden;
+}
+
+iframe{
+	height: 100%;
+	width: 100%;
+	border: 0;
+}
+
+.el-aside .el-menu-item{
+	background-color: rgb(122, 150, 154) !important;
+}
